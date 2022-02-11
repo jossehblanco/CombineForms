@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-protocol CombineFormValidating: AnyObservableObject {
+public protocol CombineFormValidating: AnyObservableObject {
     var formValid: Bool { get set }
     var formErrors: String { get set }
     var fields: [CombineFormField] { get set }
