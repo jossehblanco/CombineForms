@@ -13,65 +13,65 @@ public protocol ValidatableTextPickerConfiguration {
     var allowsListSearch: Bool { get }
 }
 
-struct DefaultPicker: ValidatableTextPickerConfiguration {
-    var allowsCustomListObjects: Bool {
+public struct DefaultPicker: ValidatableTextPickerConfiguration {
+    public var allowsCustomListObjects: Bool {
         false
     }
     
-    var allowsListSearch: Bool {
+    public var allowsListSearch: Bool {
         false
     }
 }
 
-struct SearchablePicker: ValidatableTextPickerConfiguration {
-    var allowsCustomListObjects: Bool {
+public struct SearchablePicker: ValidatableTextPickerConfiguration {
+    public var allowsCustomListObjects: Bool {
         false
     }
     
-    var allowsListSearch: Bool {
+    public var allowsListSearch: Bool {
         true
     }
 }
 
-struct CustomizablePicker: ValidatableTextPickerConfiguration {
-    var allowsCustomListObjects: Bool {
+public struct CustomizablePicker: ValidatableTextPickerConfiguration {
+    public var allowsCustomListObjects: Bool {
         true
     }
     
-    var allowsListSearch: Bool {
+    public var allowsListSearch: Bool {
         true
     }
 }
 
-struct CompletePicker: ValidatableTextPickerConfiguration {
-    var allowsCustomListObjects: Bool {
+public struct CompletePicker: ValidatableTextPickerConfiguration {
+    public var allowsCustomListObjects: Bool {
         true
     }
     
-    var allowsListSearch: Bool {
+    public var allowsListSearch: Bool {
         true
     }
 }
 
-extension ValidatableTextPickerConfiguration where Self == DefaultPicker {
+public extension ValidatableTextPickerConfiguration where Self == DefaultPicker {
     static var standard: DefaultPicker {
         DefaultPicker()
     }
 }
 
-extension ValidatableTextPickerConfiguration where Self == SearchablePicker {
+public extension ValidatableTextPickerConfiguration where Self == SearchablePicker {
     static var searchable: SearchablePicker {
         SearchablePicker()
     }
 }
 
-extension ValidatableTextPickerConfiguration where Self == CustomizablePicker {
+public extension ValidatableTextPickerConfiguration where Self == CustomizablePicker {
     static var customizable: CustomizablePicker {
         CustomizablePicker()
     }
 }
 
-extension ValidatableTextPickerConfiguration where Self == CompletePicker {
+public extension ValidatableTextPickerConfiguration where Self == CompletePicker {
     static var complete: CompletePicker {
         CompletePicker()
     }
