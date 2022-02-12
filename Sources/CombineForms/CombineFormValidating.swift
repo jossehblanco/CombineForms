@@ -20,7 +20,7 @@ public protocol CombineFormValidating: AnyObservableObject {
 }
 
 extension CombineFormValidating {
-    func activateForm() {
+    public func activateForm() {
         fields.forEach { field in
             field.form = self
             field.objectWillChange
@@ -31,7 +31,7 @@ extension CombineFormValidating {
         }
     }
     
-    func validate() {
+    public func validate() {
         formValid = fields.map { $0.isValid }.allSatisfy { $0 }
         if !formValid {
             generateErrorMessage()
@@ -40,7 +40,7 @@ extension CombineFormValidating {
         }
     }
     
-    func generateErrorMessage() {
+    public func generateErrorMessage() {
         let errors: [String] = fields.compactMap { field in
             let fieldErrors = field.errors.joined(separator: ", ")
             if !fieldErrors.isEmpty {
