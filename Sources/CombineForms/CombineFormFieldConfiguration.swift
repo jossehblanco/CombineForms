@@ -15,131 +15,132 @@ public protocol CombineFormFieldConfiguration {
     func transform(text: String) -> String
 }
 
-struct DateField: CombineFormFieldConfiguration {
+public struct DateField: CombineFormFieldConfiguration {
     
     let required: CombineFormFieldRule = .required
     let customerAge: CombineFormFieldRule = .customerAge
     
-     var rules: [CombineFormFieldRule] {
+    public var rules: [CombineFormFieldRule] {
         [required, customerAge]
     }
     
-     var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         .default
     }
 }
 
-struct PhoneField: CombineFormFieldConfiguration {
+public struct PhoneField: CombineFormFieldConfiguration {
     
     let required: CombineFormFieldRule = .required
     let phoneNumber: CombineFormFieldRule = .phoneNumber
     
-     var rules: [CombineFormFieldRule] {
+    public var rules: [CombineFormFieldRule] {
         [required, phoneNumber]
     }
     
-     var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         .numberPad
     }
     
-     func transform(text: String) -> String {
+    public func transform(text: String) -> String {
         text.toPhoneNumber()
     }
 }
 
-struct NonEmptyField: CombineFormFieldConfiguration {
+public struct NonEmptyField: CombineFormFieldConfiguration {
     
-     var rules: [CombineFormFieldRule] {
+    public var rules: [CombineFormFieldRule] {
         [.required]
     }
     
-     var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         .default
     }
 }
 
-struct OptionalField: CombineFormFieldConfiguration {
+public struct OptionalField: CombineFormFieldConfiguration {
     
-     var rules: [CombineFormFieldRule] {
+    public var rules: [CombineFormFieldRule] {
         [.optional]
     }
     
-     var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         .default
     }
     
-    var placeholder: String {
+    public var placeholder: String {
         "Optional"
     }
 }
 
-struct EmailField: CombineFormFieldConfiguration {
+public struct EmailField: CombineFormFieldConfiguration {
     
     let required: CombineFormFieldRule = .required
     let email: CombineFormFieldRule = .email
-     var rules: [CombineFormFieldRule] {
+    public var rules: [CombineFormFieldRule] {
         [required, email]
     }
     
-     var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         .emailAddress
     }
 }
 
-struct PostalCodeField: CombineFormFieldConfiguration {
+public struct PostalCodeField: CombineFormFieldConfiguration {
     
     let required: CombineFormFieldRule = .required
     let postalCode: CombineFormFieldRule = .postalcode
     
-     var rules: [CombineFormFieldRule] {
+    public var rules: [CombineFormFieldRule] {
         [required, postalCode]
     }
     
-     var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         .namePhonePad
     }
 }
 
-extension CombineFormFieldConfiguration {
+public extension CombineFormFieldConfiguration {
     var placeholder: String {
         "Required"
     }
+    
     func transform(text: String) -> String {
         text
     }
 }
 
-extension CombineFormFieldConfiguration where Self == DateField {
+public extension CombineFormFieldConfiguration where Self == DateField {
     static var date: some CombineFormFieldConfiguration {
         DateField()
     }
 }
 
-extension CombineFormFieldConfiguration where Self == PhoneField {
+public extension CombineFormFieldConfiguration where Self == PhoneField {
     static var phoneNumber: some CombineFormFieldConfiguration {
         PhoneField()
     }
 }
 
-extension CombineFormFieldConfiguration where Self == NonEmptyField {
+public extension CombineFormFieldConfiguration where Self == NonEmptyField {
     static var nonEmpty: some CombineFormFieldConfiguration {
         NonEmptyField()
     }
 }
 
-extension CombineFormFieldConfiguration where Self == OptionalField {
+public extension CombineFormFieldConfiguration where Self == OptionalField {
     static var optional: some CombineFormFieldConfiguration {
         OptionalField()
     }
 }
 
-extension CombineFormFieldConfiguration where Self == EmailField {
+public extension CombineFormFieldConfiguration where Self == EmailField {
     static var email: some CombineFormFieldConfiguration {
         EmailField()
     }
 }
 
-extension CombineFormFieldConfiguration where Self == PostalCodeField {
+public extension CombineFormFieldConfiguration where Self == PostalCodeField {
     static var postalCode: some CombineFormFieldConfiguration {
         PostalCodeField()
     }
