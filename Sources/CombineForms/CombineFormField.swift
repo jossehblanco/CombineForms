@@ -12,20 +12,20 @@ import SwiftUI
 @propertyWrapper
 public class CombineFormField: ValidatableField, ObservableObject, Hashable {
 
-    @Published var value: String
-    @Published var isValid = false
-    @Published var errors: [String] = []
-    @Published var options: [String] = []
-    @Published var firstTimeEmpty = true
+    @Published public var value: String
+    @Published public var isValid = false
+    @Published public var errors: [String] = []
+    @Published public var options: [String] = []
+    @Published public var firstTimeEmpty = true
     
-    lazy var binding: Binding<String> = .init(get: { [weak self] in
+    lazy public var binding: Binding<String> = .init(get: { [weak self] in
         self?.value ?? ""
     }, set: { [weak self] text in
         guard let self = self else { return }
         self.value = text
     })
     
-    var publisher: Published<String>.Publisher {
+    public var publisher: Published<String>.Publisher {
         $value
     }
     
@@ -42,19 +42,19 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         }
     }
     
-    var requirementText: String {
+    public var requirementText: String {
         configuration.placeholder
     }
     
     private var cancellables: Set<AnyCancellable> = .init()
-    internal var configuration: CombineFormFieldConfiguration
-    var type: CombineFormFieldType
-    var form: CombineFormValidating?
-    var pickerConfiguration: ValidatableTextPickerConfiguration?
-    var label: String
+    public var configuration: CombineFormFieldConfiguration
+    public var type: CombineFormFieldType
+    public var form: CombineFormValidating?
+    public var pickerConfiguration: ValidatableTextPickerConfiguration?
+    public var label: String
     
     // MARK: - Initializer
-    init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, options: [String] = [], pickerConfiguration: ValidatableTextPickerConfiguration? = nil) {
+    public init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, options: [String] = [], pickerConfiguration: ValidatableTextPickerConfiguration? = nil) {
         self.value = value
         self.configuration = configuration
         self.label = label
@@ -64,7 +64,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         configure()
     }
     
-    init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, options: [String] = [], pickerConfiguration: ValidatableTextPickerConfiguration? = nil) {
+    public init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, options: [String] = [], pickerConfiguration: ValidatableTextPickerConfiguration? = nil) {
         self.value = value
         self.configuration = configuration
         self.label = label
@@ -84,7 +84,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     }
     
     // MARK: - Public Methods    
-    func validate() {
+    public func validate() {
         if firstTimeEmpty && !value.isEmpty {
             firstTimeEmpty = false
         }

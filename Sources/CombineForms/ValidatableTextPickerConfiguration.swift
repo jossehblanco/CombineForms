@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ValidatableTextPickerConfiguration {
+public protocol ValidatableTextPickerConfiguration {
     var allowsCustomListObjects: Bool { get }
     
     var allowsListSearch: Bool { get }

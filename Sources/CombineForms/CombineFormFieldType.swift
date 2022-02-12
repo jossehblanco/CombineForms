@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CombineFormFieldType {
+public enum CombineFormFieldType {
     case text
     case picker
     case datePicker
