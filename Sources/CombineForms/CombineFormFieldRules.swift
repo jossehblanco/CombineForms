@@ -38,7 +38,7 @@ struct EmailRule: CombineFormFieldRule {
     }
     
     func validate(text: String) -> Bool {
-        !text.isValidEmail()
+        text.isValidEmail()
     }
 }
 
