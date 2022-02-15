@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DeviceKit",
+        "repositoryURL": "https://github.com/devicekit/DeviceKit.git",
+        "state": {
+          "branch": null,
+          "revision": "da57c444cbb7b6159aa871534d4cf2616d1d55c6",
+          "version": "4.5.2"
+        }
+      },
+      {
+        "package": "PhoneNumberKit",
+        "repositoryURL": "https://github.com/marmelroy/PhoneNumberKit",
+        "state": {
+          "branch": null,
+          "revision": "1ef0431b971f69c48ca5eb4cdba07f2c5da54c35",
+          "version": "3.3.3"
+        }
+      },
+      {
+        "package": "PostalCodeValidator",
+        "repositoryURL": "https://github.com/FormatterKit/PostalCodeValidator",
+        "state": {
+          "branch": null,
+          "revision": "3eac835f7153b4ad54f325f281c13df1dc47657b",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
