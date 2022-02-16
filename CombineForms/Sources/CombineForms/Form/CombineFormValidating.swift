@@ -32,17 +32,20 @@ extension CombineFormValidating {
     }
     
     public func validate() {
-        formValid = fields.map { $0.isValid }.allSatisfy { $0 }
-        if !formValid {
-            generateErrorMessage()
-        } else {
-            formErrors = ""
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.formValid = self.fields.map { $0.isValid }.allSatisfy { $0 }
+            if !self.formValid {
+                self.generateErrorMessage()
+            } else {
+                self.formErrors = ""
+            }
         }
     }
     
     public func generateErrorMessage() {
         let errors: [String] = fields.compactMap { field in
-            let fieldErrors = field.errors.joined(separator: ", ")
+            let fieldErrors = field.error
             if !fieldErrors.isEmpty {
                 return "\(field.label) - " + fieldErrors
             } else {

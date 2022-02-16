@@ -14,8 +14,8 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
 
     @Published public var value: String
     @Published public var isValid = false
-    @Published public var errors: [String] = []
-    @Published public var options: [String] = []
+    @Published public var error: String = ""
+    @Published public var brokenRules: [CombineFormFieldRule] = []
     @Published public var firstTimeEmpty = true
     
     lazy public var binding: Binding<String> = .init(get: { [weak self] in
@@ -47,33 +47,28 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     }
     
     private var cancellables: Set<AnyCancellable> = .init()
-    private var errorStrategy: CombineFormErrorStrategy
+    private var validator: FieldValidating
     public var configuration: CombineFormFieldConfiguration
     public var type: CombineFormFieldType
     public var form: CombineFormValidating?
-    public var pickerConfiguration: ValidatableTextPickerConfiguration?
     public var label: String
     
     // MARK: - Initializer
-    public init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, options: [String] = [], pickerConfiguration: ValidatableTextPickerConfiguration? = nil, errorStrategy: CombineFormErrorStrategy = .append) {
+    public init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator()) {
         self.value = value
         self.configuration = configuration
         self.label = label
         self.type = type
-        self.pickerConfiguration = pickerConfiguration
-        self.options = options
-        self.errorStrategy = errorStrategy
+        self.validator = validator
         configure()
     }
     
-    public init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, options: [String] = [], pickerConfiguration: ValidatableTextPickerConfiguration? = nil, errorStrategy: CombineFormErrorStrategy = .append) {
+    public init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator()) {
         self.value = value
         self.configuration = configuration
         self.label = label
         self.type = type
-        self.pickerConfiguration = pickerConfiguration
-        self.options = options
-        self.errorStrategy = errorStrategy
+        self.validator = validator
         configure()
     }
     
@@ -88,20 +83,19 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     
     // MARK: - Public Methods    
     public func validate() {
+        error = ""
         if firstTimeEmpty && !value.isEmpty {
             firstTimeEmpty = false
         }
-        var results: [Bool] = []
-        errors = []
-        configuration
-            .rules.forEach { rule in
-                let ruleSatisfied = rule.validate(text: value)
-                results.append(ruleSatisfied)
-                if !ruleSatisfied && !firstTimeEmpty {
-                    errors.append(rule.notValidMessage)
-                }
+        let validationResults = validator.validate(rules: configuration.rules, text: value)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.brokenRules = validationResults.brokenRules
+            self.isValid = validationResults.isValid
+            if !self.firstTimeEmpty, !self.isValid {
+                self.error = self.validator.generateError(brokenRules: validationResults.brokenRules)
             }
-        isValid = results.allSatisfy { $0 }
+        }
         form?.validate()
     }
     
