@@ -17,6 +17,7 @@ public protocol CombineFormValidating: AnyObservableObject {
     func activateForm()
     func generateErrorMessage()
     func validate()
+    func validatePrePopulatedFields()
 }
 
 extension CombineFormValidating {
@@ -57,5 +58,17 @@ extension CombineFormValidating {
             errorMessage.append(contentsOf: "\($0)\n")
         }
         formErrors = errorMessage
+    }
+    
+    public func validatePrePopulatedFields() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.fields.forEach { field in
+                if !field.isValid {
+                    field.firstTimeEmpty = false
+                    field.validate()
+                }
+            }
+        }
     }
 }
