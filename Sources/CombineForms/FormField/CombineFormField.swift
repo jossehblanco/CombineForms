@@ -11,7 +11,7 @@ import SwiftUI
 
 @propertyWrapper
 public class CombineFormField: ValidatableField, ObservableObject, Hashable {
-
+    
     @Published public var value: String
     @Published public var isValid = false
     @Published public var error: String = ""
@@ -81,22 +81,22 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         hasher.combine(label)
     }
     
-    // MARK: - Public Methods    
+    // MARK: - Public Methods
     public func validate() {
-        error = ""
-        if firstTimeEmpty && !value.isEmpty {
-            firstTimeEmpty = false
-        }
-        let validationResults = validator.validate(rules: configuration.rules, text: value)
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.brokenRules = validationResults.brokenRules
+            self.error = ""
+            let validationResults = self.validator.validate(rules: self.configuration.rules, text: self.value)
             self.isValid = validationResults.isValid
+            if self.firstTimeEmpty && !self.value.isEmpty {
+                self.firstTimeEmpty = false
+            }
+            self.brokenRules = validationResults.brokenRules
             if !self.firstTimeEmpty, !self.isValid {
                 self.error = self.validator.generateError(brokenRules: validationResults.brokenRules)
             }
+            self.form?.validate()
         }
-        form?.validate()
     }
     
     // MARK: - Private Methods
