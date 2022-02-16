@@ -15,7 +15,7 @@ class FormViewModel: ObservableObject, CombineFormValidating {
     @Published var formErrors: String = ""
     
     @CombineFormField(configuration: .nonEmpty, label: "Username", type: .text)
-    var username = ""
+    var username = "asdsada"
     
     @CombineFormField(configuration: .email, label: "Email", type: .text, validator: DefaultValidator(errorStrategy: .highestPriority))
     var email = ""
@@ -30,5 +30,6 @@ class FormViewModel: ObservableObject, CombineFormValidating {
     
     init() {
         activateForm()
+        validatePrePopulatedFields()
     }
 }
