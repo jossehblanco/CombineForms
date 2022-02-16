@@ -5,6 +5,6 @@
       location = "group:ExampleApp/CombineFormsExample/CombineFormsExample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:CombineFormsExample/../CombineForms">
+      location = "group:">
    </FileRef>
 </Workspace>

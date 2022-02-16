@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		71629D8D27BB5E7800CD26C9 /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71629D8C27BB5E7800CD26C9 /* FormViewModel.swift */; };
-		71629D8F27BB5F8A00CD26C9 /* CombineForms in Frameworks */ = {isa = PBXBuildFile; productRef = 71629D8E27BB5F8A00CD26C9 /* CombineForms */; };
+		71C7FF6C27BD829B00A6ABC0 /* CombineForms in Frameworks */ = {isa = PBXBuildFile; productRef = 71C7FF6B27BD829B00A6ABC0 /* CombineForms */; };
 		71D90FC527BB34BB009D5F38 /* CombineFormsExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90FC427BB34BB009D5F38 /* CombineFormsExampleApp.swift */; };
 		71D90FC727BB34BB009D5F38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90FC627BB34BB009D5F38 /* ContentView.swift */; };
 		71D90FC927BB34BD009D5F38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D90FC827BB34BD009D5F38 /* Assets.xcassets */; };
@@ -37,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		71629D8C27BB5E7800CD26C9 /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
+		71C7FF6A27BD828700A6ABC0 /* CombineForms */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CombineForms; path = ../..; sourceTree = "<group>"; };
 		71D90FC127BB34BB009D5F38 /* CombineFormsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CombineFormsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D90FC427BB34BB009D5F38 /* CombineFormsExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineFormsExampleApp.swift; sourceTree = "<group>"; };
 		71D90FC627BB34BB009D5F38 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71629D8F27BB5F8A00CD26C9 /* CombineForms in Frameworks */,
+				71C7FF6C27BD829B00A6ABC0 /* CombineForms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				71D90FEF27BB34D8009D5F38 /* CombineForms */,
+				71C7FF6A27BD828700A6ABC0 /* CombineForms */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -167,7 +169,7 @@
 			);
 			name = CombineFormsExample;
 			packageProductDependencies = (
-				71629D8E27BB5F8A00CD26C9 /* CombineForms */,
+				71C7FF6B27BD829B00A6ABC0 /* CombineForms */,
 			);
 			productName = CombineFormsExample;
 			productReference = 71D90FC127BB34BB009D5F38 /* CombineFormsExample.app */;
@@ -636,7 +638,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		71629D8E27BB5F8A00CD26C9 /* CombineForms */ = {
+		71C7FF6B27BD829B00A6ABC0 /* CombineForms */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CombineForms;
 		};
