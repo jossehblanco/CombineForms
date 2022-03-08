@@ -17,6 +17,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     @Published public var error: String = ""
     @Published public var brokenRules: [CombineFormFieldRule] = []
     @Published public var firstTimeEmpty = true
+    @Published public var fieldName: String
     
     lazy public var binding: Binding<String> = .init(get: { [weak self] in
         self?.value ?? ""
@@ -71,6 +72,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         self.validator = validator
         self.showRequirement = showRequirement
         self.debounceTime = debounceTime
+        self.fieldName = label
         self.label = label
         configure()
     }
@@ -82,6 +84,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         self.validator = validator
         self.showRequirement = showRequirement
         self.debounceTime = debounceTime
+        self.fieldName = label
         self.label = label
         configure()
     }
