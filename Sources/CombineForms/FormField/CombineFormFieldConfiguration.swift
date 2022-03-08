@@ -11,7 +11,7 @@ import UIKit
 public protocol CombineFormFieldConfiguration {
     var rules: [CombineFormFieldRule] { get }
     var keyboardType: UIKeyboardType { get }
-    var placeholder: String { get }
+    var requirementLabel: String { get }
     func transform(text: String) -> String
 }
 
@@ -68,7 +68,7 @@ public struct OptionalField: CombineFormFieldConfiguration {
         .default
     }
     
-    public var placeholder: String {
+    public var requirementLabel: String {
         "Optional"
     }
 }
@@ -101,7 +101,7 @@ public struct PostalCodeField: CombineFormFieldConfiguration {
 }
 
 public extension CombineFormFieldConfiguration {
-    var placeholder: String {
+    var requirementLabel: String {
         "Required"
     }
     
