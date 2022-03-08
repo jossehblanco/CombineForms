@@ -43,32 +43,46 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     }
     
     public var requirementText: String {
-        configuration.placeholder
+        configuration.requirementLabel
     }
     
     private var cancellables: Set<AnyCancellable> = .init()
     private var validator: FieldValidating
+    private var currentLabel: String = ""
+    private var showRequirement: Bool
+    private var debounceTime: RunLoop.SchedulerTimeType.Stride
     public var configuration: CombineFormFieldConfiguration
     public var type: CombineFormFieldType
     public var form: CombineFormValidating?
-    public var label: String
+    public var label: String {
+        set {
+            currentLabel = showRequirement ? "\(newValue) (\(configuration.requirementLabel.lowercased()))" :  newValue
+        }
+        get {
+            currentLabel
+        }
+    }
     
     // MARK: - Initializer
-    public init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator()) {
+    public init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator(), showRequirement: Bool = false, debounceTime: RunLoop.SchedulerTimeType.Stride = 0.00) {
         self.value = value
         self.configuration = configuration
-        self.label = label
         self.type = type
         self.validator = validator
+        self.showRequirement = showRequirement
+        self.debounceTime = debounceTime
+        self.label = label
         configure()
     }
     
-    public init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator()) {
+    public init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator(), showRequirement: Bool = false, debounceTime: RunLoop.SchedulerTimeType.Stride = 0.00) {
         self.value = value
         self.configuration = configuration
-        self.label = label
         self.type = type
         self.validator = validator
+        self.showRequirement = showRequirement
+        self.debounceTime = debounceTime
+        self.label = label
         configure()
     }
     
@@ -104,6 +118,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         $value
             .receive(on: DispatchQueue.main)
             .removeDuplicates()
+            .debounce(for: debounceTime, scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.validate()
