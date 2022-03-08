@@ -31,7 +31,7 @@ struct RequiredRule: CombineFormFieldRule {
 struct EmailRule: CombineFormFieldRule {
     
     var notValidMessage: String {
-        "Email address must be valid."
+        "Must be valid."
     }
     var priority: Int {
         5
@@ -60,7 +60,7 @@ struct DateRule: CombineFormFieldRule {
 struct PostalCodeRule: CombineFormFieldRule {
     
     var notValidMessage: String {
-        "ZIP or Postal Code must be valid."
+        "Must be valid."
     }
     var priority: Int {
         5
@@ -89,7 +89,7 @@ struct OptionalRule: CombineFormFieldRule {
 struct PhoneNumberRule: CombineFormFieldRule {
     
     var notValidMessage: String {
-        "Phone number must be valid."
+        "Must be valid."
     }
     var priority: Int {
         5
