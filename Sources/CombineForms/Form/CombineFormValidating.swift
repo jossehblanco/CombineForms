@@ -12,6 +12,7 @@ import SwiftUI
 public protocol CombineFormValidating: AnyObservableObject {
     var formValid: Bool { get set }
     var formErrors: String { get set }
+    var separatorString: String { get }
     var fields: [CombineFormField] { get set }
     var cancellables: Set<AnyCancellable> { get set }
     func activateForm()
@@ -21,6 +22,11 @@ public protocol CombineFormValidating: AnyObservableObject {
 }
 
 extension CombineFormValidating {
+    
+    public var separatorString: String {
+        return ": "
+    }
+    
     public func activateForm() {
         fields.forEach { field in
             field.form = self
@@ -48,7 +54,7 @@ extension CombineFormValidating {
         let errors: [String] = fields.compactMap { field in
             let fieldErrors = field.error
             if !fieldErrors.isEmpty {
-                return "\(field.label) - " + fieldErrors
+                return "\(field.fieldName)\(separatorString)" + fieldErrors
             } else {
                 return nil
             }
