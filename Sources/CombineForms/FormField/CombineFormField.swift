@@ -12,13 +12,20 @@ import SwiftUI
 @propertyWrapper
 public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     
+    /// The field's string value
     @Published public var value: String
+    /// Defines if a field is valid or not
     @Published public var isValid = false
+    /// The field's current error message
     @Published public var error: String = ""
+    /// The list of the rules that are currently broken
     @Published public var brokenRules: [CombineFormFieldRule] = []
+    /// Defines if the error message should be empty the first time the field is validated
     @Published public var firstTimeEmpty = true
+    /// The field's name
     @Published public var fieldName: String
     
+    // MARK: - Property Wrapper implementation
     lazy public var binding: Binding<String> = .init(get: { [weak self] in
         self?.value ?? ""
     }, set: { [weak self] text in
@@ -43,18 +50,27 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         }
     }
     
+    /// A sring that identifies the requirements for the field. Examples: Optional, Required, etc.
     public var requirementText: String {
         configuration.requirementLabel
     }
     
     private var cancellables: Set<AnyCancellable> = .init()
+    /// The field's validator
     private var validator: FieldValidating
+    /// The field's current label. It can be changed by setting the label property to another string.
     private var currentLabel: String = ""
+    /// Defines if the field's requirementText property should be added to the field's label
     private var showRequirement: Bool
+    /// Specifies a debounce time to be used each time the field's value property emits a new string
     private var debounceTime: RunLoop.SchedulerTimeType.Stride
+    /// The field's configuration parameters
     public var configuration: CombineFormFieldConfiguration
+    /// The field's type. Possible values: text, picker and datePicker
     public var type: CombineFormFieldType
+    /// A weak reference to the field's form
     public var form: CombineFormValidating?
+    /// Computed property that returns the field's formatted label
     public var label: String {
         set {
             currentLabel = showRequirement ? "\(newValue) (\(configuration.requirementLabel.lowercased()))" :  newValue

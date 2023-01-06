@@ -10,17 +10,28 @@ import Foundation
 import SwiftUI
 
 public protocol CombineFormValidating: AnyObservableObject {
+    /// Property that determines if a form is valid or not
     var formValid: Bool { get set }
+    /// A formatted list of all the errors found in the form's fields
     var formErrors: String { get set }
+    /// Seprarator string for the form errors string. Format: <Field label> <Separator> <field error message>
     var separatorString: String { get }
+    /// Array of CombineFormField objects.
     var fields: [CombineFormField] { get set }
     var cancellables: Set<AnyCancellable> { get set }
+    /// Used for activating the form by making sure each of the fields contained in this array trigger the parent object's objectWillChange event.
+    /// You should not change the function's default implementation.
+    /// The fields array must contain all of the form fields for the validation to work.
     func activateForm()
+    /// Generates a formatted string that contains all the error messages found in each of the form's fields.
     func generateErrorMessage()
+    /// Validates if the form is valid
     func validate()
+    /// Validates fields that come pre-filled before the first validation
     func validatePrePopulatedFields()
 }
 
+// MARK: - Default Implementations
 extension CombineFormValidating {
     
     public var separatorString: String {
