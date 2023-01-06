@@ -19,6 +19,12 @@ struct ContentView: View {
             makeField(field: viewModel.$fullName, text: $viewModel.fullName)
         }
         
+        Button {
+            viewModel.testConfigurationChange()
+        } label: {
+            Text("Change full name to email")
+        }
+        
         Button(action: {
             
         }, label: {

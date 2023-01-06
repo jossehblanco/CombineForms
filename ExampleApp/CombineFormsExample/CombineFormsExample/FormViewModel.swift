@@ -20,9 +20,11 @@ class FormViewModel: ObservableObject, CombineFormValidating {
     @CombineFormField(configuration: .email, label: "Email", type: .text, validator: DefaultValidator(errorStrategy: .highestPriority))
     var email = ""
     
-    @CombineFormField(configuration: .nonEmpty, label: "Full Name", type: .text, validator: DefaultValidator(errorStrategy: .override(message: "This error message has been overriden.")), showRequirement: true, debounceTime: 0.5)
+    @CombineFormField(configuration: .nonEmpty, label: "Full Name", type: .text, validator: DefaultValidator(errorStrategy: .highestPriority), showRequirement: true, debounceTime: 0.5)
     
     var fullName = ""
+    
+    var storedConfiguration: CombineFormFieldConfiguration = .email
     
     lazy var fields: [CombineFormField] = [$username, $email, $fullName]
     
@@ -31,5 +33,9 @@ class FormViewModel: ObservableObject, CombineFormValidating {
     init() {
         activateForm()
         validatePrePopulatedFields()
+    }
+    
+    func testConfigurationChange() {
+        $fullName.replaceCurrentConfiguration(with: .email)
     }
 }
