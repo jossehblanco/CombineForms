@@ -132,6 +132,14 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         }
     }
     
+    /// Replaces the field's current configuration, and re-validates it according to its new rules
+    public func replaceCurrentConfiguration(with newConfiguration: CombineFormFieldConfiguration) {
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
+        self.configuration = newConfiguration
+        configure()
+    }
+    
     // MARK: - Private Methods
     private func configure() {
         $value
