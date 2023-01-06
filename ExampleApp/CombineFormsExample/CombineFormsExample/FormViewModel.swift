@@ -14,14 +14,29 @@ class FormViewModel: ObservableObject, CombineFormValidating {
     @Published var formValid: Bool = true
     @Published var formErrors: String = ""
     
-    @CombineFormField(configuration: .nonEmpty, label: "Username", type: .text)
+    @CombineFormField(
+        configuration: .nonEmpty,
+        label: "Username",
+        type: .text
+    )
     var username = "asdsada"
     
-    @CombineFormField(configuration: .email, label: "Email", type: .text, validator: DefaultValidator(errorStrategy: .highestPriority))
+    @CombineFormField(
+        configuration: .email,
+        label: "Email",
+        type: .text,
+        validator: DefaultValidator(errorStrategy: .highestPriority)
+    )
     var email = ""
     
-    @CombineFormField(configuration: .nonEmpty, label: "Full Name", type: .text, validator: DefaultValidator(errorStrategy: .highestPriority), showRequirement: true, debounceTime: 0.5)
-    
+    @CombineFormField(
+        configuration: .nonEmpty,
+        label: "Full Name",
+        type: .text,
+        validator: DefaultValidator(errorStrategy: .highestPriority),
+        showRequirement: true,
+        debounceTime: 0.5
+    )
     var fullName = ""
     
     var storedConfiguration: CombineFormFieldConfiguration = .email

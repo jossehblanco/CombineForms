@@ -26,12 +26,12 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     @Published public var fieldName: String
     
     // MARK: - Property Wrapper implementation
-    lazy public var binding: Binding<String> = .init(get: { [weak self] in
+    lazy public var binding: Binding<String> = .init { [weak self] in
         self?.value ?? ""
-    }, set: { [weak self] text in
+    } set: { [weak self] text in
         guard let self = self else { return }
         self.value = text
-    })
+    }
     
     public var publisher: Published<String>.Publisher {
         $value
@@ -50,7 +50,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         }
     }
     
-    /// A sring that identifies the requirements for the field. Examples: Optional, Required, etc.
+    /// A string that identifies the requirements for the field. Examples: Optional, Required, etc.
     public var requirementText: String {
         configuration.requirementLabel
     }
@@ -73,7 +73,9 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     /// Computed property that returns the field's formatted label
     public var label: String {
         set {
-            currentLabel = showRequirement ? "\(newValue) (\(configuration.requirementLabel.lowercased()))" :  newValue
+            currentLabel = showRequirement ?
+            "\(newValue) (\(configuration.requirementLabel.lowercased()))" :
+            newValue
         }
         get {
             currentLabel
@@ -81,7 +83,15 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     }
     
     // MARK: - Initializer
-    public init(wrappedValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator(), showRequirement: Bool = false, debounceTime: RunLoop.SchedulerTimeType.Stride = 0.00) {
+    public init(
+        wrappedValue value: String,
+        configuration: CombineFormFieldConfiguration,
+        label: String,
+        type: CombineFormFieldType = .text,
+        validator: FieldValidating = .defaultValidator(),
+        showRequirement: Bool = false,
+        debounceTime: RunLoop.SchedulerTimeType.Stride = 0.00
+    ) {
         self.value = value
         self.configuration = configuration
         self.type = type
@@ -93,7 +103,15 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
         configure()
     }
     
-    public init(initialValue value: String, configuration: CombineFormFieldConfiguration, label: String, type: CombineFormFieldType = .text, validator: FieldValidating = .defaultValidator(), showRequirement: Bool = false, debounceTime: RunLoop.SchedulerTimeType.Stride = 0.00) {
+    public init(
+        initialValue value: String,
+        configuration: CombineFormFieldConfiguration,
+        label: String,
+        type: CombineFormFieldType = .text,
+        validator: FieldValidating = .defaultValidator(),
+        showRequirement: Bool = false,
+        debounceTime: RunLoop.SchedulerTimeType.Stride = 0.00
+    ) {
         self.value = value
         self.configuration = configuration
         self.type = type

@@ -14,7 +14,7 @@ public protocol CombineFormValidating: AnyObservableObject {
     var formValid: Bool { get set }
     /// A formatted list of all the errors found in the form's fields
     var formErrors: String { get set }
-    /// Seprarator string for the form errors string. Format: <Field label> <Separator> <field error message>
+    /// Separator string for the form errors string. Format: <Field label> <Separator> <field error message>
     var separatorString: String { get }
     /// Array of CombineFormField objects.
     var fields: [CombineFormField] { get set }
