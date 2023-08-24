@@ -24,6 +24,7 @@ public class CombineFormField: ValidatableField, ObservableObject, Hashable {
     @Published public var firstTimeEmpty = true
     /// The field's name
     @Published public var fieldName: String
+    public var testVar: String = "Test"
     
     // MARK: - Property Wrapper implementation
     lazy public var binding: Binding<String> = .init { [weak self] in
